@@ -8,7 +8,7 @@ import { useSearchParams } from "react-router-dom";
 function App() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [sortBy,setSortBy] =useState(searchParams.get("gender")??"")
+  const [sortBy,setSortBy] =useState(searchParams.get("orderby")??"")
   const [genderId , setGenderId] = useState(searchParams.get("gender")??"");
   const [occasionId,setOccasionId] = useState(searchParams.get("occasion")??"");
   const [relationshipId , setRelationshipId] =useState(searchParams.get("relationship")??"");

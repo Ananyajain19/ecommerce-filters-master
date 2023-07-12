@@ -8,7 +8,9 @@
 }
 .logo{
     font-family: Abril Fatface;
-    font-size: larger;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
 }
 .main-header{
     display: flex;
@@ -18,4 +20,6 @@
     display: flex;
     justify-content: space-evenly;
     column-gap: 15px;
+    align-items: center;
 }
+

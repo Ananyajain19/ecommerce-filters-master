@@ -13,7 +13,7 @@
     border-radius: 3px ;
 }
 .cross{
-    height: 15px;
+    height: 14px;
     width:  11px;
     color: white;
     display: flex;
@@ -21,10 +21,10 @@
     align-items: center;
     border-radius: 100% ;
     background-color: #267e71;
-     padding-bottom: 1.5px ;
-     
-     padding-left: 1.5px;
-     padding-right: 1.5px;
+     padding-bottom: 1px ;
+     position: relative;
+     padding-left: 1px;
+     padding-right: 1px;
      
 }
 .cross:hover{
@@ -55,4 +55,9 @@
    display: flex;
    flex-direction: column;
   
+}
+.filterscreen{
+    display: flex;
+    column-gap: 1rem;
+    
 }

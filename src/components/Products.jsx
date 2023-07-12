@@ -1,7 +1,39 @@
 import React from 'react'
 import './Products.css'
 
-function ValueFromUrl ({data,field ,searchParams ,setSearchParams}){
+function AppliedFilter({sortBy,genderId,occasionId,relationshipId,setGenderId,setOccasionId,setRelationshipId,setSearchParams, state, setSortBy, searchParams}){
+  const handleDelete = () => {
+   setGenderId("")
+   setOccasionId("")
+   setRelationshipId("")
+    setSearchParams({});
+  };
+  const queryparam = window.location.search;
+  if(queryparam.length>1){
+    return(
+      <div className='filterscreen'>
+      <div style={{fontWeight:'bold'}}>
+        Filters :
+      </div>
+      <div className='filtername'>
+      <ValueFromUrl data = {state.genders} field = {"gender"} searchParams={searchParams} setSearchParams={setSearchParams} setSortBy={setSortBy} setId={setGenderId}/>
+      <ValueFromUrl data = {state.occasions} field = {"occasion"} searchParams={searchParams} setSearchParams={setSearchParams} setSortBy={setSortBy} setId={setOccasionId}/>
+      <ValueFromUrl data = {state.relationships} field = {"relationship"} searchParams={searchParams} setSearchParams={setSearchParams} setSortBy={setSortBy} setId={setRelationshipId}/>
+       <SortBy searchParams={searchParams} setSearchParams={setSearchParams} setSortBy={setSortBy}/>
+      </div>
+     
+      
+      <div> <button className="clear-button" onClick={handleDelete}>
+          Clear Filters
+        </button></div>
+      </div>
+    ) 
+    } else{
+      return
+  }
+}
+
+function ValueFromUrl ({data,field ,searchParams ,setSearchParams, setSortBy,setId}){
 
   const filterid = searchParams.get(field);
   if(!filterid){
@@ -18,7 +50,8 @@ function ValueFromUrl ({data,field ,searchParams ,setSearchParams}){
           {field}{" "}:{" "}{filtername}
         </div>
         <div className='cross' onClick={() => {
-          searchParams.delete(filterid)
+          setId("")
+          searchParams.delete(field)
           setSearchParams(searchParams)
         }}>&times;</div>
       </span>
@@ -26,7 +59,7 @@ function ValueFromUrl ({data,field ,searchParams ,setSearchParams}){
   );
 }
 
-function SortBy({searchParams,setSearchParams}){
+function SortBy({searchParams,setSearchParams,setSortBy}){
   let findSortby=searchParams.get("orderby");
     if (!findSortby) {
       console.log("empty")
@@ -41,7 +74,7 @@ function SortBy({searchParams,setSearchParams}){
       displayValue="Sort : Newest"
     } else if(findSortby==="hotgifts"){
       displayValue="Sort : Hotgifts"
-    } else if(findSortby==="promotions"){
+    } else if(findSortby==="discount_percentage"){
       displayValue="Sort : Promotion"
     } else if(findSortby==="toandfrom"){
       displayValue="Sort : To&From Marketplace"
@@ -55,6 +88,7 @@ function SortBy({searchParams,setSearchParams}){
        <div className='cross' onClick={() => {
         searchParams.delete("orderby")
         setSearchParams(searchParams)
+        setSortBy("")
       }}>&times;</div>
       </span>
     );
@@ -63,16 +97,10 @@ export default function Products({state , setState , searchParams ,setSearchPara
   return (
     <div className='show-filters'>
     <div className='Product-screen'>
-      Filters:
-      <div className='filtername'>
-      <ValueFromUrl data = {state.genders} field = {"gender"} searchParams={searchParams} setSearchParams={setSearchParams}/>
-      <ValueFromUrl data = {state.occasions} field = {"occasion"} searchParams={searchParams} setSearchParams={setSearchParams}/>
-      <ValueFromUrl data = {state.relationships} field = {"relationship"} searchParams={searchParams} setSearchParams={setSearchParams}/>
+    <AppliedFilter sortBy={sortBy} genderId={genderId} occasionId={occasionId} relationshipId={relationshipId} state={state} setGenderId={setGenderId} setOccasionId={setOccasionId} setRelationshipId={setRelationshipId} setSearchParams={setSearchParams} searchParams={searchParams} setSortBy={setSortBy}  />
+      
       </div>
-      </div>
-       <div className='sortname'>
-       <SortBy searchParams={searchParams} setSearchParams={setSearchParams}/>
-       </div>
+      
        
        </div>
   );

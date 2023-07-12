@@ -36,15 +36,15 @@ const FilterDropdown = ({
       </button>
       <select
         className="sort-button"
-        value={sortBy}
+        value={"Sort By"}
         onChange={(e) => {
-          searchParams.delete("orderBy");
+          searchParams.delete("orderby");
           setSortBy(e.target.value);
           searchParams.append("orderby", e.target.value);
           setSearchParams(searchParams);
         }}
       >
-        <option value={""} className="sortby-options">
+        <option value={""} className="sortby-options" hidden>
           Sort By
         </option>
         <option value={"priceASC"} className="sortby-options">
@@ -66,14 +66,18 @@ const FilterDropdown = ({
           To&From Marketplace
         </option>
       </select>
+      <div>
       {formVisible && (
-        <div className="modal">
+        
+            
+        <div className="modal">          
           <div className="modal-content">
-            <span style={{ fontWeight: "bold" }}>Filters</span>
+            <div className="modal-header">
+            <span className="filtertext" style={{ fontWeight: "bold" }}>Filters</span>
             <span className="close" onClick={handleClose}>
               &times;
             </span>
-
+            </div>
             <ShowFilter
               buttonval={setFormVisible}
               state={state}
@@ -91,7 +95,9 @@ const FilterDropdown = ({
             />
           </div>
         </div>
+        
       )}
+      </div>
     </>
   );
 };
